@@ -1,6 +1,5 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './TabSettings.css';
 
 const TabSettings: React.FC = () => {
@@ -17,7 +16,6 @@ const TabSettings: React.FC = () => {
             <IonTitle size="large">Settings</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Settings" />
       </IonContent>
     </IonPage>
   );

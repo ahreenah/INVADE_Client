@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 
 const TabTrainings: React.FC = () => {
@@ -16,10 +16,24 @@ const TabTrainings: React.FC = () => {
             <IonTitle size="large">Tab 3-1</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonButton color="light" expand="full">Spelling</IonButton>
-        <IonButton color="light" expand="full">Choose Spelling</IonButton>
-        <IonButton color="light" expand="full">Choose Translation</IonButton>
-        <IonButton color="light" expand="full">Quick quiz</IonButton>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonButton color="light" expand="full">Spelling</IonButton>
+            </IonCol>
+            <IonCol>
+              <IonButton color="light" expand="full">Choose Spelling</IonButton>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonButton color="light" expand="full">Choose Translation</IonButton>
+            </IonCol>
+            <IonCol>
+              <IonButton color="light" expand="full">Quick quiz</IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
