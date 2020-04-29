@@ -15,6 +15,7 @@ import TabDashboard from './pages/TabDashboard';
 import TabDictionary from './pages/TabDictionary';
 import TabTrainings from './pages/TabTrainings';
 import TabSettings from './pages/TabSettings';
+import TabTrainingSelectDict from './pages/TabTrainingsSelectDict'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -43,6 +44,7 @@ const App: React.FC = () => (
           <Route path="/tabDashboard" component={TabDashboard} exact={true} />
           <Route path="/tabDictionary" component={TabDictionary} exact={true} />
           <Route path="/tabTrainings" component={TabTrainings} exact={true}/>
+          <Route path="/tabChooseDict" component={TabTrainingSelectDict} exact={true}/>
           <Route path="/tabSettings" component={TabSettings} />
           <Route path="/" render={() => <Redirect to="/tabDashboard" />} exact={true} />
         </IonRouterOutlet>

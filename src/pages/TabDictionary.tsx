@@ -1,5 +1,8 @@
-import React from 'react';
-import { IonNote, IonList, IonItem, IonLabel, IonGrid, IonRow, IonCol, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardHeader, IonCard, IonCardSubtitle, IonCardTitle} from '@ionic/react';
+import React, {useState} from 'react';
+import {  IonModal, IonNote, IonList, IonItem, IonButtons,
+          IonLabel, IonGrid, IonRow, IonCol, IonButton, 
+          IonContent, IonHeader, IonPage, IonTitle, IonToolbar, 
+          IonCardHeader, IonCard, IonCardSubtitle, IonCardTitle} from '@ionic/react';
 import './TabDictionary.css';
 
 let words = [{key:"1",spelling:"dog",translation:"собака"},
@@ -19,8 +22,33 @@ function t(word:any){
   console.log(word);
 }
 const TabDictionary: React.FC = () => {
+  let shownWord={spelling:""};
+  const [showModal, setShowModal] = useState(false);
+
+  const [titleSpelling, setTitleSpelling] = useState({spelling:'',translation:''});
+  function showWordInfo(word:any){
+    shownWord=word;
+    shownWord=word;
+    setShowModal(true);
+    setTitleSpelling(word);
+    console.log(word);
+  }
   return (
     <IonPage>
+      
+      <IonModal isOpen={showModal}>
+        <IonHeader translucent>
+          <IonToolbar>
+            <IonTitle id="shownTitle">{titleSpelling.spelling}</IonTitle>
+            <IonButtons slot="end">
+              <IonButton onClick={()=>setShowModal(false)}>Close</IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <p>{titleSpelling.translation}</p>
+        <IonButton onClick={() => setShowModal(false)}>Delete word</IonButton>
+      </IonModal>
+
       <IonHeader>
         <IonToolbar>
           <IonTitle>Dictionary</IonTitle>
@@ -58,7 +86,7 @@ const TabDictionary: React.FC = () => {
                   return (<IonRow>
                     {
                       (
-                        <IonCol key={i.key} onClick={()=>t(i)}>
+                        <IonCol key={i.key} onClick={()=>showWordInfo(i)}>
                           <IonCard>
                             <IonCardHeader>
                               <IonCardTitle>{i.spelling}</IonCardTitle>
