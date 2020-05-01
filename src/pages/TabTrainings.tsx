@@ -19,19 +19,30 @@ let words = [{key:"1",spelling:"dog",translation:"dog"},
              {key:"10",spelling:"prepend",translation:"pre"},
              {key:"11",spelling:"depend",translation:"dep"},];
              
-function random4(){
-  return words;
-  //return (words.sort((a,b)=>(Math.random()-0.5)))
-  //console.log(words)
+function random4(correctKey:string){
+  let words2 = [...words];
+  words2=words2.sort((a,b)=>(Math.random()-0.5))
+  let correctNum = words2.findIndex(function (i){return i.key==correctKey})
+  if (correctNum>3){
+    let newNum = Math.trunc(Math.random()*4);
+    words2[newNum] = words2[correctNum];
+    correctNum = newNum;
+  }
+  console.log('correct: ',correctNum);
+  return {words:words2, num:correctNum};
 }
 
 let wordNum = 0;
+
+let correctNum = "2";
+let rnd = random4(correctNum);
 
 const TabTrainings: React.FC = () => {
   const [training, setTraining] = useState('');
   const [wordSet, setWordSet] = useState(-1);
   const [trainingShown, setTrainingShown] = useState(words[wordNum].spelling);
-  let shuffled = random4();
+  let shuffled = rnd.words;
+  correctNum = rnd.num.toString();
   const [w,setW]=useState(shuffled);
   if(training=='') 
   return (
@@ -114,10 +125,16 @@ const TabTrainings: React.FC = () => {
       </div>)
     function answer(i:any){
       wordNum++;
-      if(words.length>wordNum)
-      setTrainingShown(words[wordNum].spelling);
+      if(i==correctNum)console.log('ok');
+      if(words.length>wordNum){
+        setTrainingShown(words[wordNum].spelling);
+        rnd = random4(words[wordNum].key);
+        let shuffled = rnd.words;
+        correctNum = rnd.num.toString();
+        setW(shuffled);
+      }
       else
-      alert('end')
+        alert('end')
       // console.log(wordNum);
     }
     if (training=='choose spelling' || training=="choose translation")
