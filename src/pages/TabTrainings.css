@@ -1,0 +1,25 @@
+.row{
+    display:flex;
+    flex-direction:row;
+}
+.spelling{
+    border: 1px solid white;
+    flex-grow:1;
+    border-radius:10px;
+}
+button{
+    background-color: red !important;
+}
+.answerBtn, .answerWrapper{
+    width:100%;
+}
+
+/* Set variables for all modes */
+:root {
+    /* Set the background of the entire app */
+    --ion-background-color: #ff3700;
+  
+    /* Set the font family of the entire app */
+    --ion-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
+  }
+  
