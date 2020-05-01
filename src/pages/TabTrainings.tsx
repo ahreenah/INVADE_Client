@@ -7,21 +7,32 @@ import './TabTrainings.css'
 let wordSets = [{key:"1",name:"en 1",language:"english"},
              {key:"2",name:"sp 5",language:"spanish"},];
 
-let words = [{key:"1",spelling:"dog",translation:"собака"},
-             {key:"2",spelling:"cat",translation:"кощка"},
-             {key:"3",spelling:"dog",translation:"собака"},
-             {key:"4",spelling:"dog",translation:"собака"},
-             {key:"5",spelling:"cat",translation:"кощка"},
-             {key:"6",spelling:"dog",translation:"собака"},
-             {key:"7",spelling:"dog",translation:"собака"},
-             {key:"8",spelling:"cat",translation:"кощка"},
-             {key:"9",spelling:"dog",translation:"собака"},
-             {key:"10",spelling:"dog",translation:"собака"},
-             {key:"11",spelling:"cat",translation:"кощка"},];
+let words = [{key:"1",spelling:"dog",translation:"dog"},
+             {key:"2",spelling:"cat",translation:"cat"},
+             {key:"3",spelling:"rat",translation:"rat"},
+             {key:"4",spelling:"bat",translation:"bat"},
+             {key:"5",spelling:"set",translation:"set"},
+             {key:"6",spelling:"get",translation:"get"},
+             {key:"7",spelling:"adopt",translation:"ado"},
+             {key:"8",spelling:"reset",translation:"res"},
+             {key:"9",spelling:"append",translation:"app"},
+             {key:"10",spelling:"prepend",translation:"pre"},
+             {key:"11",spelling:"depend",translation:"dep"},];
              
+function random4(){
+  return words;
+  //return (words.sort((a,b)=>(Math.random()-0.5)))
+  //console.log(words)
+}
+
+let wordNum = 0;
+
 const TabTrainings: React.FC = () => {
   const [training, setTraining] = useState('');
   const [wordSet, setWordSet] = useState(-1);
+  const [trainingShown, setTrainingShown] = useState(words[wordNum].spelling);
+  let shuffled = random4();
+  const [w,setW]=useState(shuffled);
   if(training=='') 
   return (
     <IonPage>
@@ -94,52 +105,56 @@ const TabTrainings: React.FC = () => {
       return (
       <div>
         <IonCard>
-          <IonCardHeader>TEXT</IonCardHeader>
+          <IonCardHeader>{trainingShown}</IonCardHeader>
           <div className="row">
             <IonInput className="spelling"></IonInput>
-            <IonButton>next</IonButton>
+            <IonButton onClick={()=>{answer(1)}}>next</IonButton>
           </div>
         </IonCard>
       </div>)
     function answer(i:any){
-
+      wordNum++;
+      if(words.length>wordNum)
+      setTrainingShown(words[wordNum].spelling);
+      else
+      alert('end')
+      // console.log(wordNum);
     }
     if (training=='choose spelling' || training=="choose translation")
       return (
         <IonCard>
-          <IonCardHeader>TEXT</IonCardHeader>
+          <IonCardHeader>{trainingShown}</IonCardHeader>
           <IonGrid className="answerWrapper">
             <IonRow>
               <IonCol>
-                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('spelling')}}>w1</IonButton>
+                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('0')}}>{w[0].spelling}</IonButton>
               </IonCol>
               <IonCol>
-                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('choose spelling')}}>w2</IonButton>
+                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('1')}}>{w[1].spelling}</IonButton>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('choose translation')}}>w3</IonButton>
+                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('2')}}>{w[2].spelling}</IonButton>
               </IonCol>
               <IonCol>
-                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('quick quiz')}}>w4</IonButton>
+                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('3')}}>{w[3].spelling}</IonButton>
               </IonCol>
             </IonRow>
           </IonGrid>
-        </IonCard>
-        
+        </IonCard> 
       )
       if (training=='quick quiz')
       return (
         <IonCard>
-          <IonCardHeader>TEXT</IonCardHeader>
+          <IonCardHeader>{trainingShown}</IonCardHeader>
           <IonGrid className="answerWrapper">
             <IonRow>
               <IonCol>
-                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('spelling')}}>YES</IonButton>
+                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer(true)}}>YES</IonButton>
               </IonCol>
               <IonCol>
-                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer('choose spelling')}}>NO</IonButton>
+                <IonButton className="answerBtn" color="light" expand="full" onClick={()=>{answer(false)}}>NO</IonButton>
               </IonCol>
             </IonRow>
           </IonGrid>
