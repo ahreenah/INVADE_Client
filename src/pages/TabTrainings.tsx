@@ -32,15 +32,22 @@ function random4(correctKey:string){
   return {words:words2, num:correctNum};
 }
 
+function handleChangeSpelling(event:any){
+  providedAnswer=event.target.value;
+}
+
 let wordNum = 0;
 
+let providedAnswer="";
 let correctNum = "2";
+let correctSpelling="";
 let rnd = random4(correctNum);
 
 const TabTrainings: React.FC = () => {
   const [training, setTraining] = useState('');
+  const [trainingEnded, setTrainingEnded] = useState(false);
   const [wordSet, setWordSet] = useState(-1);
-  const [trainingShown, setTrainingShown] = useState(words[wordNum].spelling);
+  const [trainingShown, setTrainingShown] = useState(wordNum<words.length?words[wordNum].spelling:'');
   let shuffled = rnd.words;
   correctNum = rnd.num.toString();
   const [w,setW]=useState(shuffled);
@@ -111,6 +118,20 @@ const TabTrainings: React.FC = () => {
       </IonContent>
     </IonPage>
   );
+  if(trainingEnded){
+    return (
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>
+            Training result
+            </IonTitle>
+            </IonToolbar>
+        </IonHeader>
+        <IonContent></IonContent>
+      </IonPage>
+    )
+  }
   function tp(){
     if (training=='spelling')
       return (
@@ -118,23 +139,48 @@ const TabTrainings: React.FC = () => {
         <IonCard>
           <IonCardHeader>{trainingShown}</IonCardHeader>
           <div className="row">
-            <IonInput className="spelling"></IonInput>
+            <IonInput className="spelling" onIonChange={handleChangeSpelling} ></IonInput>
             <IonButton onClick={()=>{answer(1)}}>next</IonButton>
           </div>
         </IonCard>
       </div>)
     function answer(i:any){
       wordNum++;
-      if(i==correctNum)console.log('ok');
+      // checking the answer
+      if (training=='choose spelling' || training=="choose translation"){
+        if(i==correctNum)
+          console.log('ok');
+        else
+          console.log('not ok')
+      }
+      if (training=='spelling'){
+        console.log(providedAnswer);
+        if(true)
+          console.log('ok');
+        else
+          console.log('not ok')
+        providedAnswer='';
+      }
+      if(training=='quick quiz'){
+        if(true)
+          console.log('ok');
+        else
+          console.log('not ok')
+      } 
+
+      // next word
       if(words.length>wordNum){
         setTrainingShown(words[wordNum].spelling);
         rnd = random4(words[wordNum].key);
         let shuffled = rnd.words;
+        correctSpelling = words[wordNum].spelling;
         correctNum = rnd.num.toString();
         setW(shuffled);
       }
-      else
+      else{
         alert('end')
+        setTrainingEnded(true);
+      }
       // console.log(wordNum);
     }
     if (training=='choose spelling' || training=="choose translation")
